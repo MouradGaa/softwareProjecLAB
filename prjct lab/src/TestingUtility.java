@@ -44,7 +44,7 @@ public class TestingUtility {
 
                                 }
                                 case "zebi"->{
-                                    //......
+                                    System.out.println("ahlawenti");
                                 }
                             }
                         }
