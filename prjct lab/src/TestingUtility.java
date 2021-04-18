@@ -84,6 +84,32 @@ public class TestingUtility {
                         }
                     }
                     break;
+                    //bor3i
+                    case "check": {
+                        String s1 = splited[1];
+                        String s2 = splited[2];
+                        int x1 = Character.getNumericValue(s1.charAt(1));
+                        int y1 = Character.getNumericValue(s1.charAt(2));
+                        int x2 = Character.getNumericValue(s2.charAt(1));
+                        int y2 = Character.getNumericValue(s2.charAt(2));
+                        if (x1 == x2 && y1 == y2) {
+                            if (map.getMapField(x1, y1).getAsteroid().getIsHollow()) {
+                                map.getMapField(x1, y1).getOperator().Hide(map.getMapField(x1, x2).getAsteroid());
+                            } else {
+                                System.out.println("The asteroid is not completely drilled through");
+                            }
+                        } else {
+                            System.out.println("settler and asteroid not in the same position");
+                        }
+
+                    }
+                    break;
+                    //bor3i
+                    case "win":
+                    {
+                        map.Win();
+                    }
+                    break;
                     case "add": {
                         String s = splited[2];
                         int x = Character.getNumericValue(s.charAt(1));
