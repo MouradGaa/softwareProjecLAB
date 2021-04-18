@@ -21,7 +21,7 @@ public class Asteroid extends EntityBase {
 	public Asteroid()
 	{
 
-		System.out.println("Asteroid created");
+		System.out.println("New Asteroid is created");
 	}
 	public Asteroid(int d) {
 		Depth = d;
@@ -57,6 +57,7 @@ public class Asteroid extends EntityBase {
 	public void addMaterial(MaterialBase m)
 	{
 		this.resource= m ;
+		System.out.println("material added to the asteroid");
 	}
 
 
@@ -80,6 +81,7 @@ public class Asteroid extends EntityBase {
 	public void setDepth(int d)
 	{
 		Depth = d ;
+		System.out.println("depth is set");
 	}
 	public boolean getIsHollow()
 	{

@@ -32,7 +32,7 @@ public class main {
                             Asteroid a2 = new Asteroid();
                             settler.setAsteroid(a1);
                             // starting the sequence
-                            settler.Travel(a2);
+                           // settler.Travel(a2);
                         }
                             break;
                         case 2 :
@@ -235,7 +235,7 @@ public class main {
                             System.out.println("2-No");
                             int result = scanner.nextInt();
                             if (result == 1) {
-                                settler.Teleport(g2);
+                                //settler.Teleport(g2);
                                 settler.CollideWith(g2);
                                 settler.setAsteroid(a2);
                             } else {

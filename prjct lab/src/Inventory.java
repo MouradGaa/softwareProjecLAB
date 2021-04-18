@@ -14,12 +14,20 @@ public class Inventory {
 	public void setResources(MaterialBase mb)
 	{
 		Resources.add(mb) ;
+		System.out.println("resource added to the inventory");
 	}
 	public MaterialBase getResource(int index)
 	{
 		return Resources.get(index) ;
-	}
-	public void RemoveResources(int index)
+		}
+
+		public void setGates(TeleportationGate g)
+		{
+			Gates.add(g) ;
+			System.out.println("gate added to the inventory");
+		}
+
+		public void RemoveResources(int index)
 	{
 		Resources.remove(index) ;
 	}

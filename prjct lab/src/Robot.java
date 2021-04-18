@@ -7,7 +7,16 @@ public class Robot extends Operator {
 	void Teleport(TeleportationGate g) {}
 	boolean CollideWith(EntityBase e) {
 		return false;}
-		public Robot()
+
+	@Override
+	public Inventory getInventory() {
+		return null;
+	}
+
+	@Override
+	public void HideResource(Asteroid a, MaterialBase r) {}
+
+	public Robot()
 		{
 			System.out.println("Robot created");
 		}
