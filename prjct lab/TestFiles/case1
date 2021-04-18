@@ -1,0 +1,20 @@
+create A 0 0
+create A 1 0
+create A 2 0
+create S 0 0
+add G S00
+create G 0 0
+create G 2 0
+activate G00 G20
+create R 2 0
+modify A20 depth 1
+drill R20 A20
+modify A20 depth 0
+add U A00
+modify A00 depth 1
+drill S00 A00
+mine S00 A00
+teleport S00 G20
+modify A20 state 1
+carry U 00
+hideresrc U00 A20

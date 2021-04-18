@@ -2,6 +2,7 @@ import java.io.File;
 
 public class   Field {
 	private Operator operator ;
+	private Settler settler ;
 	private Asteroid asteroid ;
 	public Field()
 	{
@@ -27,6 +28,14 @@ public class   Field {
 	Operator getOperator()
 	{
 		return operator ;
+	}
+	void addSettler(Settler s)
+	{
+		settler = s ;
+	}
+	Settler getSettler()
+	{
+		return settler ;
 	}
 	//mourad
 	void RemoveOperator(Operator o)

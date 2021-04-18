@@ -8,7 +8,7 @@ public class Asteroid extends EntityBase {
 	Scanner scanner = new Scanner(System.in);
 	private int Depth;
 	private int State;
-	private MaterialBase resource;
+	private MaterialBase resource = null ;
 	private boolean isRadioactive = true;
 	private boolean isHollow;
 	private Settler settler ;
@@ -30,7 +30,7 @@ public class Asteroid extends EntityBase {
 	public void DecreaseDepth()
 	{
 		Depth-- ;
-		if(Depth==0)
+		if(Depth==0 && resource ==null)
 		{
 			isHollow= true ;
 		}
@@ -59,7 +59,12 @@ public class Asteroid extends EntityBase {
 		this.resource= m ;
 		System.out.println("material added to the asteroid");
 	}
-
+	public MaterialBase removeResource()
+	{
+		MaterialBase r = resource ;
+		resource = null ;
+		return r ;
+	}
 
 	public boolean checkNeighbor(Asteroid a2)
 	{
