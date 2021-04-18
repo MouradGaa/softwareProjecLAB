@@ -1,0 +1,4 @@
+create A 3 0
+create S 3 0
+modify A30 depth 0
+hide S30 A30
