@@ -48,7 +48,7 @@ public class TestingUtility {
                         int y = Integer.parseInt(splited[3]);
                         switch (splited[1]) {
                             case "A" -> map.getMapField(x, y).addAsteroid(new Asteroid());
-                            case "S" -> map.getMapField(x, y).addSettler(new Settler());
+                            case "S" -> map.getMapField(x, y).addOperator(new Settler());
                             case "R" -> map.getMapField(x, y).addOperator(new Robot());
                             case "G" -> map.getMapField(x, y).getAsteroid().setGate(new TeleportationGate());
                         }
@@ -85,7 +85,7 @@ public class TestingUtility {
                     }
                     break;
                     //bor3i
-                    case "hide": {
+                    case "check": {
                         String s1 = splited[1];
                         String s2 = splited[2];
                         int x1 = Character.getNumericValue(s1.charAt(1));
@@ -93,7 +93,11 @@ public class TestingUtility {
                         int x2 = Character.getNumericValue(s2.charAt(1));
                         int y2 = Character.getNumericValue(s2.charAt(2));
                         if (x1 == x2 && y1 == y2) {
-                            map.getMapField(x1,y1).getSettler().Hide(map.getMapField(x1,y1).getAsteroid());
+                            if (map.getMapField(x1, y1).getAsteroid().getIsHollow()) {
+                                map.getMapField(x1, y1).getOperator().Hide(map.getMapField(x1, x2).getAsteroid());
+                            } else {
+                                System.out.println("The asteroid is not completely drilled through");
+                            }
                         } else {
                             System.out.println("settler and asteroid not in the same position");
                         }
@@ -149,7 +153,6 @@ public class TestingUtility {
                         int y2 = Character.getNumericValue(s2.charAt(2));
                         if(s1.charAt(0)=='R' || s1.charAt(0)=='S') {
                             if (x1 == x2 && y1 == y2) {
-                                map.getMapField(x1, y1).getOperator().setCurrentfield( map.getMapField(x1, y1));
                                 map.getMapField(x1, y1).getOperator().Drill(map.getMapField(x2, y2).getAsteroid());
                             } else {
                                 System.out.println("Operator and asteroid not in the same position");
