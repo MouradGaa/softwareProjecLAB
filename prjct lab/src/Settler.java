@@ -62,7 +62,9 @@ public class Settler extends Operator {
 		System.out.println("settler moved 1 unit " + s);
 
 	}
-	public void Hide (Asteroid a) {}
+	public void Hide (Asteroid a) {
+		System.out.println("settler hided successfully");
+	}
 	public void Die()
 	{
 		main.WriteFunctionName("Settler died");
