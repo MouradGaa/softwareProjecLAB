@@ -107,6 +107,15 @@ public class Settler extends Operator {
 			}
 		}
 	}
+
+	public void Mine(Asteroid a, Inventory i)
+	{
+		if(a.getDepth()==0 && !a.getIsHollow() )
+		{
+			i.setResources(a.removeResource()); // remove resource from asteroid and set it in inventory
+		}
+	}
+
 	public void BuildRobot(Factory f, Inventory i) {}
 	public void BuildGate(Factory f) {
 		System.out.println("Is the settler at the factory ");
@@ -118,6 +127,12 @@ public class Settler extends Operator {
 	public void HideResource(Asteroid a, MaterialBase r)
 	{
 		a.addMaterial(r);
+		System.out.println("depth: "+a.getDepth()+ "   state: "+a.getState() );
+		if(a.getDepth()==0 && a.getState()==Asteroid.PERIHELION)
+		{
+			a.explode();
+			this.Die();
+		}
 		/*main.WriteFunctionName("HideResource() method is called ");
 		System.out.println("Is the asteroid mantle completely drilled through ?");
 		System.out.println("1-Yes");

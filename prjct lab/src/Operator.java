@@ -11,12 +11,13 @@ public abstract class Operator {
 	boolean CollideWith(EntityBase e) {
 		return false;}
 
-
+	public abstract void Mine(Asteroid a, Inventory i) ;
 	public abstract Inventory getInventory();
 
 	public abstract void HideResource(Asteroid a, MaterialBase r);
 
-	public abstract void Mine(Asteroid asteroid);
 
 	public abstract void setCurrentfield(Field mapField);
+
+	public abstract void setInventory(Inventory inventory);
 }

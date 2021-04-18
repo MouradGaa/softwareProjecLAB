@@ -3,9 +3,9 @@ import java.io.File;
 public class   Field {
 	private Operator operator ;
 	private Asteroid asteroid ;
-	private SunStorm sunstorm ;
 	public Field()
 	{
+
 	}
 	public Field(Operator o,Asteroid a)
 	{
@@ -28,7 +28,6 @@ public class   Field {
 	{
 		return operator ;
 	}
-	void addSunStorm(SunStorm sunStorm){sunstorm = sunStorm;}
 	//mourad
 	void RemoveOperator(Operator o)
 	{
