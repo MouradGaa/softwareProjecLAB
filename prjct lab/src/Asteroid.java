@@ -47,6 +47,7 @@ public class Asteroid extends EntityBase {
 	public void setGate(TeleportationGate g)
 	{
 		gate = g ;
+		System.out.println("gate is deployed on the asteroid");
 	}
 
 	public TeleportationGate getGate() {

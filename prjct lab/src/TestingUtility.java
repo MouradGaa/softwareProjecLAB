@@ -17,8 +17,8 @@ public class TestingUtility {
                 cmdList.add(line);
             }
             input.close();    //closes the stream and release the resources
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("Wrong file name");
         }
     }
 
@@ -97,7 +97,6 @@ public class TestingUtility {
                     }
                     break;
                     case "carry": {
-                        String s = splited[1];
                         String s2 = splited[2];
                         int x = Character.getNumericValue(s2.charAt(0));
                         int y = Character.getNumericValue(s2.charAt(1));
@@ -185,10 +184,24 @@ public class TestingUtility {
                         } else {
                             System.out.println("settler and asteroid not in the same position");
                         }
-                        break;
 
                     }
+                    break;
+                    case "deploy": {
+                        String s1 = splited[1];
+                        String s2 = splited[2];
+                        int x1 = Character.getNumericValue(s1.charAt(1));
+                        int y1 = Character.getNumericValue(s1.charAt(2));
+                        int x2 = Character.getNumericValue(s2.charAt(1));
+                        int y2 = Character.getNumericValue(s2.charAt(2));
+                        if (x1 == x2 && y1 == y2) {
+                            map.getMapField(x1, y1).getAsteroid().setGate(map.getMapField(x1, y1).getAsteroid().getGate());
 
+                        } else {
+                            System.out.println("settler and asteroid not in the same position");
+                        }
+                    }
+                        break;
                 }
             }
         }

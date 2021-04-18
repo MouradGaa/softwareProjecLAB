@@ -1,0 +1,5 @@
+create S 1 0
+create A 1 0
+create G 1 0
+carry G 10
+deploy G10 A10
