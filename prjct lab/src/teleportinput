@@ -1,0 +1,7 @@
+create S 1 0
+create A 1 0
+create A 2 0
+create G 1 0
+create G 2 0
+activate G10 G20
+teleport S10 G20
