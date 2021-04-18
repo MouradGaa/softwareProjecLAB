@@ -9,12 +9,23 @@ public class Robot extends Operator {
 		return false;}
 
 	@Override
+	public void Mine(Asteroid a, Inventory i) {
+
+	}
+
+	@Override
 	public Inventory getInventory() {
-		return null;
+		Inventory inv = new Inventory() ;
+		return inv;
 	}
 
 	@Override
 	public void HideResource(Asteroid a, MaterialBase r) {}
+
+	@Override
+	public void setInventory(Inventory inventory) {
+
+	}
 
 	public Robot()
 		{

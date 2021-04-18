@@ -7,12 +7,17 @@ public abstract class Operator {
 	void Travel (Field f,String s) {}
 	void Hide (Asteroid a) {}
 	void Die() {}
-	void Teleport(Asteroid a,Field field) {}
+	void Teleport(Asteroid a,Field field)
+	{
+
+	}
 	boolean CollideWith(EntityBase e) {
 		return false;}
 
-
+	public abstract void Mine(Asteroid a, Inventory i) ;
 	public abstract Inventory getInventory();
 
 	public abstract void HideResource(Asteroid a, MaterialBase r);
+
+	public abstract void setInventory(Inventory inventory);
 }
