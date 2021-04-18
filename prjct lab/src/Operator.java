@@ -15,4 +15,8 @@ public abstract class Operator {
 	public abstract Inventory getInventory();
 
 	public abstract void HideResource(Asteroid a, MaterialBase r);
+
+	public abstract void Mine(Asteroid asteroid);
+
+	public abstract void setCurrentfield(Field mapField);
 }

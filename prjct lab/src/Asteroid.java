@@ -17,7 +17,9 @@ public class Asteroid extends EntityBase {
 	public int getState() {
 		return State;
 	}
-
+	public void setHollow(boolean isHollow) {
+		this.isHollow = isHollow;
+	}
 	public Asteroid()
 	{
 
@@ -29,10 +31,16 @@ public class Asteroid extends EntityBase {
 
 	public void DecreaseDepth()
 	{
-		Depth-- ;
+
 		if(Depth==0)
 		{
 			isHollow= true ;
+			main.WriteFunctionName("The asteroid is hollow, and cannot be drilled through");
+		}
+		else
+		{
+			Depth-- ;
+			main.WriteFunctionName("The rock mantle depth of the asteroid is reduced by one unit");
 		}
 	}
 	public void explode() {
@@ -61,6 +69,9 @@ public class Asteroid extends EntityBase {
 		System.out.println("material added to the asteroid");
 	}
 
+	public MaterialBase getResource() {
+		return resource;
+	}
 
 	public boolean checkNeighbor(Asteroid a2)
 	{

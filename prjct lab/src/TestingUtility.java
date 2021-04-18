@@ -71,8 +71,10 @@ public class TestingUtility {
                                             map.getMapField(x, y).getAsteroid().setState(Asteroid.PERIHELION);
                                         }
                                     }
-                                    case "zebi" -> {
-                                        System.out.println("ahlawenti");
+                                    case "hollow" -> {
+                                        map.getMapField(x, y).getAsteroid().setHollow(true);
+                                        System.out.println("The core of the asteroid is set to be hollow");
+
                                     }
                                 }
                             }
@@ -202,6 +204,38 @@ public class TestingUtility {
                         }
                     }
                         break;
+                    case "mine": {
+                        String s1 = splited[1];
+                        String s2 = splited[2];
+                        int x1 = Character.getNumericValue(s1.charAt(1));
+                        int y1 = Character.getNumericValue(s1.charAt(2));
+                        int x2 = Character.getNumericValue(s2.charAt(1));
+                        int y2 = Character.getNumericValue(s2.charAt(2));
+                        if (x1 == x2 && y1 == y2) {
+                            map.getMapField(x1, y1).getOperator().Mine(map.getMapField(x2, y2).getAsteroid());
+                        } else {
+                            System.out.println("settler and asteroid not in the same position");
+                        }
+                    }
+                    break;
+                    case "SunStorm": {
+                        String s1 = splited[1];
+                        String s2 = splited[2];
+                        int x1 = Character.getNumericValue(s1.charAt(1));
+                        int y1 = Character.getNumericValue(s1.charAt(2));
+                        int x2 = Character.getNumericValue(s2.charAt(0));
+                        int y2 = Character.getNumericValue(s2.charAt(1));
+                        if (x1 == x2 && y1 == y2) {
+                            SunStorm s = new SunStorm();
+                            map.getMapField(x1, y1).getOperator().setCurrentfield( map.getMapField(x1, y1));
+                            map.getMapField(x1, y1).addSunStorm(s);
+                            s.Hit(map.getMapField(x1, y1).getOperator());
+
+                        } else {
+                            System.out.println("settler is not in sunstorm area");
+                        }
+                    }
+                    break;
                 }
             }
         }
