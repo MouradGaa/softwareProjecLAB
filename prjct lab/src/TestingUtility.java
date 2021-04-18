@@ -94,6 +94,11 @@ public class TestingUtility {
                                 case "W" -> map.getMapField(x, y).getAsteroid().addMaterial(new WaterIce());
                             }
                         }
+                        if (s.charAt(0) == 'S') {
+                            switch (splited[1]) {
+                                case "G" -> map.getMapField(x, y).getOperator().getInventory().setGates(new TeleportationGate());
+                            }
+                        }
                     }
                     break;
                     case "carry": {
@@ -106,8 +111,6 @@ public class TestingUtility {
                             case "I" -> map.getMapField(x, y).getOperator().getInventory().setResources(new Iron());
                             case "W" -> map.getMapField(x, y).getOperator().getInventory().setResources(new WaterIce());
                             case "G" -> map.getMapField(x, y).getOperator().getInventory().setGates(new TeleportationGate());
-
-
                         }
                     }
                     break;
@@ -118,14 +121,34 @@ public class TestingUtility {
                         int y1 = Character.getNumericValue(s1.charAt(2));
                         int x2 = Character.getNumericValue(s2.charAt(1));
                         int y2 = Character.getNumericValue(s2.charAt(2));
-                        if (x1 == x2 && y1 == y2) {
-                            map.getMapField(x1, y1).getOperator().Drill(map.getMapField(x2, y2).getAsteroid());
-                        } else {
-                            System.out.println("settler and asteroid not in the same position");
+                        if(s1.charAt(0)=='R' || s1.charAt(0)=='S') {
+                            if (x1 == x2 && y1 == y2) {
+                                map.getMapField(x1, y1).getOperator().Drill(map.getMapField(x2, y2).getAsteroid());
+                            } else {
+                                System.out.println("Operator and asteroid not in the same position");
+                            }
                         }
 
                     }
                     break;
+                    case "mine": {
+                        String s1 = splited[1];
+                        String s2 = splited[2];
+                        int x1 = Character.getNumericValue(s1.charAt(1));
+                        int y1 = Character.getNumericValue(s1.charAt(2));
+                        int x2 = Character.getNumericValue(s2.charAt(1));
+                        int y2 = Character.getNumericValue(s2.charAt(2));
+                        if(s1.charAt(0)=='R' || s1.charAt(0)=='S') {
+                            if (x1 == x2 && y1 == y2) {
+                                Operator op =map.getMapField(x1, y1).getOperator() ;
+                                op.setInventory(new Inventory());
+                                op.Mine(map.getMapField(x2, y2).getAsteroid(),op.getInventory());
+                            } else {
+                                System.out.println("cannot mine");
+                            }
+                        }
+
+                    }
                     case "activate": {
                         String g1 = splited[1];
                         String g2 = splited[2];
@@ -179,11 +202,12 @@ public class TestingUtility {
                         int y1 = Character.getNumericValue(s1.charAt(2));
                         int x2 = Character.getNumericValue(s2.charAt(1));
                         int y2 = Character.getNumericValue(s2.charAt(2));
-                        if (x1 == x2 && y1 == y2) {
                             map.getMapField(x1, y1).getOperator().HideResource(map.getMapField(x2, y2).getAsteroid(), map.getMapField(x1, y1).getOperator().getInventory().getResource(0));
                         } else {
                             System.out.println("settler and asteroid not in the same position");
                         }
+
+                            //System.out.println("settler and asteroid not in the same position");
 
                     }
                     break;
