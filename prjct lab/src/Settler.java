@@ -11,6 +11,7 @@ public class Settler extends Operator {
 
 	public Settler()
 	{
+		setInventory(new Inventory());
 		System.out.println("Settler created");
 	}
  // asteroid getters and setters
@@ -41,6 +42,11 @@ public class Settler extends Operator {
 		}
 	}
 	// field getters and setters
+	public Field getCurrentfield(Field f)
+	{
+		return currentfield ;
+	}
+
 	public void setCurrentfield(Field f)
 	{
 		this.currentfield = f ;
@@ -49,23 +55,13 @@ public class Settler extends Operator {
 	{
 		return currentfield ;
 	}
-	//Mourad
-	public void Travel (Asteroid a)
+	public void Travel (Field f,String s)
 	{
-		main.WriteFunctionName("Travel() method is called ");
-		if (asteroid.checkNeighbor(a))
-		{
-			setAsteroid(a); main.WriteFunctionName("SetAsteroid() is called");
-			CollideWith(a) ; main.WriteFunctionName("CollideWith() is called");
-			System.out.println("Settler traveled");
-		}
-		else
-		{
-			System.out.println("can't travel");
-		}
+
+		setCurrentfield(f);
+		System.out.println("settler moved 1 unit " + s);
 
 	}
-	//Mourad
 	public void Hide (Asteroid a) {}
 	public void Die()
 	{
@@ -77,9 +73,11 @@ public class Settler extends Operator {
 			System.out.println("Settler is removed from the game");
 		}*/
 	}
-	public void Teleport(TeleportationGate g) {
-		main.WriteFunctionName("Teleport() method is called");
-		if (this.CollideWith(asteroid))
+	public void Teleport(Asteroid a,Field f) {
+		setCurrentfield(f);
+		setAsteroid(a);
+		System.out.println("settler teleported to the second gate");
+		/*if (this.CollideWith(asteroid))
 		{
 			CollideWith(asteroid) ; main.WriteFunctionName("CollideWith() is called");
 			System.out.println("Settler teleported");
@@ -87,7 +85,7 @@ public class Settler extends Operator {
 		else
 		{
 			System.out.println("can't travel");
-		}
+		}*/
 	}
 	public boolean CollideWith(EntityBase e) {return true;}
 	public void Mine(Asteroid a, Inventory i) {}
@@ -101,7 +99,8 @@ public class Settler extends Operator {
 	//mourad
 	public void HideResource(Asteroid a, MaterialBase r)
 	{
-		main.WriteFunctionName("HideResource() method is called ");
+		a.addMaterial(r);
+		/*main.WriteFunctionName("HideResource() method is called ");
 		System.out.println("Is the asteroid mantle completely drilled through ?");
 		System.out.println("1-Yes");
 		System.out.println("2-No");
@@ -125,7 +124,7 @@ public class Settler extends Operator {
 		else
 		{
 			System.out.println("The asteroid is not completely drilled through, you can't hide resource");
-		}
+		}*/
 	}
 	//mourad
 }
