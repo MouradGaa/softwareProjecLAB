@@ -1,6 +1,6 @@
 import java.io.File;
 
-public class Field {
+public class   Field {
 	private Operator operator ;
 	private Asteroid asteroid ;
 	public Field()
