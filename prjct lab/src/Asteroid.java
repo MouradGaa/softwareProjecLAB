@@ -86,7 +86,7 @@ public class Asteroid extends EntityBase {
 	public void setDepth(int d)
 	{
 		Depth = d ;
-		System.out.println("depth is set");
+		System.out.println("depth is set to "+d);
 	}
 	public boolean getIsHollow()
 	{
