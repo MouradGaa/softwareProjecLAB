@@ -48,7 +48,7 @@ public class TestingUtility {
                         int y = Integer.parseInt(splited[3]);
                         switch (splited[1]) {
                             case "A" -> map.getMapField(x, y).addAsteroid(new Asteroid());
-                            case "S" -> map.getMapField(x, y).addOperator(new Settler());
+                            case "S" -> map.getMapField(x, y).addSettler(new Settler());
                             case "R" -> map.getMapField(x, y).addOperator(new Robot());
                             case "G" -> map.getMapField(x, y).getAsteroid().setGate(new TeleportationGate());
                         }
@@ -82,6 +82,28 @@ public class TestingUtility {
                                 //write some code
                             }
                         }
+                    }
+                    break;
+                    //bor3i
+                    case "hide": {
+                        String s1 = splited[1];
+                        String s2 = splited[2];
+                        int x1 = Character.getNumericValue(s1.charAt(1));
+                        int y1 = Character.getNumericValue(s1.charAt(2));
+                        int x2 = Character.getNumericValue(s2.charAt(1));
+                        int y2 = Character.getNumericValue(s2.charAt(2));
+                        if (x1 == x2 && y1 == y2) {
+                            map.getMapField(x1,y1).getSettler().Hide(map.getMapField(x1,y1).getAsteroid());
+                        } else {
+                            System.out.println("settler and asteroid not in the same position");
+                        }
+
+                    }
+                    break;
+                    //bor3i
+                    case "win":
+                    {
+                        map.Win();
                     }
                     break;
                     case "add": {
