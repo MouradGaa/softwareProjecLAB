@@ -16,5 +16,5 @@ drill S00 A00
 mine S00 A00
 teleport S00 G20
 modify A20 state 1
-carry U 00
-hideresrc U00 A20
+carry U 20
+hideresrc U20 A20
