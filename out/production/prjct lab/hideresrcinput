@@ -1,5 +1,0 @@
-create S 1 0
-create A 1 0
-carry C 10
-modify A10 depth 0
-hideresrc C10 A10
