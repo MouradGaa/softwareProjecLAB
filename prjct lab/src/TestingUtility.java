@@ -127,6 +127,7 @@ public class TestingUtility {
                         int y2 = Character.getNumericValue(s2.charAt(2));
                         if(s1.charAt(0)=='R' || s1.charAt(0)=='S') {
                             if (x1 == x2 && y1 == y2) {
+                                map.getMapField(x1, y1).getOperator().setCurrentfield( map.getMapField(x1, y1));
                                 map.getMapField(x1, y1).getOperator().Drill(map.getMapField(x2, y2).getAsteroid());
                             } else {
                                 System.out.println("Operator and asteroid not in the same position");
