@@ -34,12 +34,18 @@ public class Settler extends Operator {
 	}
 	public void Drill (Asteroid a)
 	{
-		a.DecreaseDepth();
 		if(a.getDepth()==0 && a.getState()==Asteroid.PERIHELION)
 		{
 			a.explode();
 			this.Die();
 		}
+		if (a.getDepth()==0)
+		{
+			System.out.println("asteroid is hollow");
+			return;
+		}
+		a.DecreaseDepth();
+		System.out.println("drill() method is called   depth : " + a.getDepth()) ;
 	}
 	// field getters and setters
 	public Field getCurrentfield(Field f)
