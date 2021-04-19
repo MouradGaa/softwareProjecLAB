@@ -37,4 +37,6 @@ public class   Field {
 	//mourad
 	void RemoveEntity(EntityBase e) {}
 
+	public void addSunStorm(SunStorm s) {
+	}
 }

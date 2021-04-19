@@ -94,6 +94,19 @@ public class Asteroid extends EntityBase {
 		System.out.println("state changed");
 	}
 
+	public MaterialBase getResource() {
+		return resource;
+	}
+
+	public void setHollow(boolean b) { isHollow =b;
+	}
+	public MaterialBase removeResource()
+	{
+		MaterialBase r = resource ;
+		resource = null ;
+		return r ;
+	}
+
 	//Mourad
 
 }

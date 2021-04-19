@@ -40,10 +40,7 @@ public class Robot extends Operator {
 
 	}
 
-	@Override
-	public void Mine(Asteroid asteroid) {
 
-	}
 
 	public Robot()
 		{
