@@ -1,0 +1,15 @@
+create A 3 0
+create S 3 0
+carry U 30
+carry U 30
+carry U 30
+carry C 30
+carry C 30
+carry C 30
+carry I 30
+carry I 30
+carry I 30
+carry W 30
+carry W 30
+carry W 30
+win S30
