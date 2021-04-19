@@ -107,6 +107,6 @@ public class Asteroid extends EntityBase {
 		return r ;
 	}
 
-	//Mourad
+
 
 }
