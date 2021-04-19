@@ -1,0 +1,9 @@
+create A 0 0
+create S 0 0
+modify A00 depth 5
+drill S00 A00
+create A 0 1
+create S 1 0
+drill S10 A01
+modify A00 depth 0
+drill S00 A00

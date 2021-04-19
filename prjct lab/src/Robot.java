@@ -3,7 +3,20 @@ public class Robot extends Operator {
 	void Drill (Asteroid a) {}
 	void Travel (Asteroid a) {}
 	void Hide (Asteroid a) {}
-	void Die() {}
+	void Die() {
+		System.out.println("Robot Died");
+    getCurrentfield().RemoveOperator(this);
+	}
+	private Field currentfield ;
+
+	public Field getCurrentfield() {
+		return currentfield;
+	}
+
+	public void setCurrentfield(Field currentfield) {
+		this.currentfield = currentfield;
+	}
+
 	void Teleport(TeleportationGate g) {}
 	boolean CollideWith(EntityBase e) {
 		return false;}
@@ -26,6 +39,8 @@ public class Robot extends Operator {
 	public void setInventory(Inventory inventory) {
 
 	}
+
+
 
 	public Robot()
 		{

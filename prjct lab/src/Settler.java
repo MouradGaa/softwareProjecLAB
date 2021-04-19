@@ -67,8 +67,10 @@ public class Settler extends Operator {
 	}
 	public void Die()
 	{
-		main.WriteFunctionName("Die() method is called ");
+		main.WriteFunctionName("Settler died");
 		Isdead = true ;
+		getCurrentfield().RemoveOperator(this);
+
 		/*if(Isdead)
 		{
 			currentfield.RemoveOperator(this) ; System.out.println("RemoveOperator() method in field is called ");
@@ -90,6 +92,23 @@ public class Settler extends Operator {
 		}*/
 	}
 	public boolean CollideWith(EntityBase e) {return true;}
+	public void Mine(Asteroid a) {
+		if (a.getDepth()>0)
+		{
+			System.out.println("The asteroid cannot be mined yet, because the depth of the asteroid is: "+a.getDepth());
+		}
+		else
+		{
+			if (a.getIsHollow()) System.out.println("The asteroid cannot be mined, because it core is empty (this is a hollow asteroid)");
+			else {
+				if (a.getState()==1)a.explode();
+				else {
+					this.getInventory().setResources(a.getResource());
+					System.out.println("The asteroid is succesfully mined");
+				}
+			}
+		}
+	}
 
 	public void Mine(Asteroid a, Inventory i)
 	{

@@ -17,8 +17,8 @@ public class TestingUtility {
                 cmdList.add(line);
             }
             input.close();    //closes the stream and release the resources
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("Wrong file name");
         }
     }
 
@@ -71,8 +71,10 @@ public class TestingUtility {
                                             map.getMapField(x, y).getAsteroid().setState(Asteroid.PERIHELION);
                                         }
                                     }
-                                    case "zebi" -> {
-                                        System.out.println("ahlawenti");
+                                    case "hollow" -> {
+                                        map.getMapField(x, y).getAsteroid().setHollow(true);
+                                        System.out.println("The core of the asteroid is set to be hollow");
+
                                     }
                                 }
                             }
@@ -124,7 +126,6 @@ public class TestingUtility {
                     }
                     break;
                     case "carry": {
-                        String s = splited[1];
                         String s2 = splited[2];
                         int x = Character.getNumericValue(s2.charAt(0));
                         int y = Character.getNumericValue(s2.charAt(1));
@@ -134,6 +135,8 @@ public class TestingUtility {
                             case "I" -> map.getMapField(x, y).getOperator().getInventory().setResources(new Iron());
                             case "W" -> map.getMapField(x, y).getOperator().getInventory().setResources(new WaterIce());
                             case "G" -> map.getMapField(x, y).getOperator().getInventory().setGates(new TeleportationGate());
+
+
                         }
                     }
                     break;
@@ -146,6 +149,7 @@ public class TestingUtility {
                         int y2 = Character.getNumericValue(s2.charAt(2));
                         if(s1.charAt(0)=='R' || s1.charAt(0)=='S') {
                             if (x1 == x2 && y1 == y2) {
+                                map.getMapField(x1, y1).getOperator().setCurrentfield( map.getMapField(x1, y1));
                                 map.getMapField(x1, y1).getOperator().Drill(map.getMapField(x2, y2).getAsteroid());
                             } else {
                                 System.out.println("Operator and asteroid not in the same position");
@@ -225,14 +229,49 @@ public class TestingUtility {
                         int y1 = Character.getNumericValue(s1.charAt(2));
                         int x2 = Character.getNumericValue(s2.charAt(1));
                         int y2 = Character.getNumericValue(s2.charAt(2));
+                        if (x1 == x2 && y1 == y2) {
                             map.getMapField(x1, y1).getOperator().HideResource(map.getMapField(x2, y2).getAsteroid(), map.getMapField(x1, y1).getOperator().getInventory().getResource(0));
+                        } else {
+                            System.out.println("settler and asteroid not in the same position");
+                        }
 
                             //System.out.println("settler and asteroid not in the same position");
 
-                        break;
-
                     }
+                    break;
+                    case "deploy": {
+                        String s1 = splited[1];
+                        String s2 = splited[2];
+                        int x1 = Character.getNumericValue(s1.charAt(1));
+                        int y1 = Character.getNumericValue(s1.charAt(2));
+                        int x2 = Character.getNumericValue(s2.charAt(1));
+                        int y2 = Character.getNumericValue(s2.charAt(2));
+                        if (x1 == x2 && y1 == y2) {
+                            map.getMapField(x1, y1).getAsteroid().setGate(map.getMapField(x1, y1).getAsteroid().getGate());
 
+                        } else {
+                            System.out.println("settler and asteroid not in the same position");
+                        }
+                    }
+                        break;
+                    case "SunStorm": {
+                        String s1 = splited[1];
+                        String s2 = splited[2];
+                        int x1 = Character.getNumericValue(s1.charAt(1));
+                        int y1 = Character.getNumericValue(s1.charAt(2));
+                        int x2 = Character.getNumericValue(s2.charAt(0));
+                        int y2 = Character.getNumericValue(s2.charAt(1));
+                        if (x1 == x2 && y1 == y2) {
+                            SunStorm s = new SunStorm();
+                            map.getMapField(x1, y1).getOperator().setCurrentfield( map.getMapField(x1, y1));
+                            map.getMapField(x1, y1).addSunStorm(s);
+                            s.Hit(map.getMapField(x1, y1).getOperator());
+
+                        } else {
+                            System.out.println("settler is not in sunstorm area");
+                        }
+                    }
+                    break;
                 }
             }
         }

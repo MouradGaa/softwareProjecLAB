@@ -1,0 +1,5 @@
+create A 0 0
+create S 0 0
+modify A00 depth 0
+add U A00
+mine S00 A00
