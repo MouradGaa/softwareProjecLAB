@@ -39,6 +39,8 @@ public class Asteroid extends EntityBase {
 		if (State ==1)
 		main.WriteFunctionName("explode() method is called");
 		main.WriteFunctionName("asteroid exploded");
+		gate.Getpair().destroy();
+		gate.destroy();
 	}
 	public void addSettler(Settler s)
 	{
@@ -91,7 +93,7 @@ public class Asteroid extends EntityBase {
 	public void setState(int s )
 	{
 		State = s ;
-		System.out.println("state changed");
+		System.out.println("state changed" + ", state: "+ State);
 	}
 
 	public MaterialBase getResource() {

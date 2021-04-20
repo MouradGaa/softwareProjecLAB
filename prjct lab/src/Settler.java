@@ -34,10 +34,14 @@ public class Settler extends Operator {
 	}
 	public void Drill (Asteroid a)
 	{
-		if(a.getDepth()==0 && a.getState()==Asteroid.PERIHELION)
+
+		if(a.getDepth()==1 && a.getState()==Asteroid.PERIHELION)
 		{
+			a.DecreaseDepth();
+			System.out.println("drill() method is called   depth: " + a.getDepth()+ " state: "+ a.getState()) ;
 			a.explode();
 			this.Die();
+			return ;
 		}
 		if (a.getDepth()==0)
 		{
@@ -45,7 +49,8 @@ public class Settler extends Operator {
 			return;
 		}
 		a.DecreaseDepth();
-		System.out.println("drill() method is called   depth : " + a.getDepth()) ;
+		System.out.println("drill() method is called   depth: " + a.getDepth()+ " state: "+ a.getState()) ;
+
 	}
 	// field getters and setters
 	public Field getCurrentfield(Field f)
@@ -75,7 +80,15 @@ public class Settler extends Operator {
 	{
 		main.WriteFunctionName("Settler died");
 		Isdead = true ;
-		getCurrentfield().RemoveOperator(this);
+		if(inventory!=null )
+		{
+			if (inventory.Gates.size()>0)
+			{
+				inventory.Gates.get(0).destroy();
+				getCurrentfield().RemoveOperator(this);
+			}
+
+		}
 
 		/*if(Isdead)
 		{
@@ -118,7 +131,7 @@ public class Settler extends Operator {
 
 	public void Mine(Asteroid a, Inventory i)
 	{
-		if(a.getDepth()==0 && !a.getIsHollow() )
+		if(a.getDepth()==0 )
 		{
 			i.setResources(a.removeResource()); // remove resource from asteroid and set it in inventory
 		}

@@ -16,4 +16,12 @@ public class TeleportationGate extends EntityBase {
 	public void setPair(TeleportationGate pair) {
 		this.pair = pair;
 	}
+	public TeleportationGate Getpair()
+	{
+		return pair ;
+	}
+	public void destroy()
+	{
+		System.out.println("gate is destroyed");
+	}
 }
