@@ -1,6 +1,23 @@
 
 public class Robot extends Operator {
-	void Drill (Asteroid a) {}
+	void Drill (Asteroid a)
+	{
+		if(a.getDepth()==1 && a.getState()==Asteroid.PERIHELION)
+		{
+			a.DecreaseDepth();
+			System.out.println("drill() method is called   depth: " + a.getDepth()+ " state: "+ a.getState()) ;
+			a.explode();
+			this.Die();
+			return ;
+		}
+		if (a.getDepth()==0)
+		{
+			System.out.println("asteroid is hollow");
+			return;
+		}
+		a.DecreaseDepth();
+		System.out.println("drill() method is called   depth: " + a.getDepth()+ " state: "+ a.getState()) ;
+	}
 	void Travel (Asteroid a) {}
 	void Hide (Asteroid a) {}
 	void Die() {

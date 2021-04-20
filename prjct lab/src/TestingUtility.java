@@ -48,7 +48,12 @@ public class TestingUtility {
                         int y = Integer.parseInt(splited[3]);
                         switch (splited[1]) {
                             case "A" -> map.getMapField(x, y).addAsteroid(new Asteroid());
-                            case "S" -> map.getMapField(x, y).addOperator(new Settler());
+                            case "S" ->
+                                    {
+                                        Settler s = new Settler() ;
+                                        map.getMapField(x, y).addOperator(s);
+                                        s.setInventory(new Inventory());
+                                    }
                             case "R" -> map.getMapField(x, y).addOperator(new Robot());
                             case "G" -> map.getMapField(x, y).getAsteroid().setGate(new TeleportationGate());
                         }
@@ -69,6 +74,10 @@ public class TestingUtility {
                                         int state = Integer.parseInt(splited[3]);
                                         if (state == 1) {
                                             map.getMapField(x, y).getAsteroid().setState(Asteroid.PERIHELION);
+
+                                        }
+                                        if (state == 0) {
+                                            map.getMapField(x, y).getAsteroid().setState(Asteroid.APHELION);
                                         }
                                     }
                                     case "hollow" -> {
@@ -150,7 +159,9 @@ public class TestingUtility {
                         if(s1.charAt(0)=='R' || s1.charAt(0)=='S') {
                             if (x1 == x2 && y1 == y2) {
                                 map.getMapField(x1, y1).getOperator().setCurrentfield( map.getMapField(x1, y1));
-                                map.getMapField(x1, y1).getOperator().Drill(map.getMapField(x2, y2).getAsteroid());
+                               Operator operator = map.getMapField(x1, y1).getOperator() ;
+                               Asteroid a =map.getMapField(x2, y2).getAsteroid() ;
+                               operator.Drill(a);
                             } else {
                                 System.out.println("Operator and asteroid not in the same position");
                             }
@@ -168,14 +179,15 @@ public class TestingUtility {
                         if(s1.charAt(0)=='R' || s1.charAt(0)=='S') {
                             if (x1 == x2 && y1 == y2) {
                                 Operator op =map.getMapField(x1, y1).getOperator() ;
-                                op.setInventory(new Inventory());
-                                op.Mine(map.getMapField(x2, y2).getAsteroid(),op.getInventory());
+                                Asteroid a = map.getMapField(x2, y2).getAsteroid();
+                                op.Mine(a,op.getInventory());
                             } else {
                                 System.out.println("cannot mine");
                             }
                         }
 
                     }
+                    break ;
                     case "activate": {
                         String g1 = splited[1];
                         String g2 = splited[2];
@@ -229,11 +241,12 @@ public class TestingUtility {
                         int y1 = Character.getNumericValue(s1.charAt(2));
                         int x2 = Character.getNumericValue(s2.charAt(1));
                         int y2 = Character.getNumericValue(s2.charAt(2));
-                        if (x1 == x2 && y1 == y2) {
-                            map.getMapField(x1, y1).getOperator().HideResource(map.getMapField(x2, y2).getAsteroid(), map.getMapField(x1, y1).getOperator().getInventory().getResource(0));
-                        } else {
-                            System.out.println("settler and asteroid not in the same position");
-                        }
+
+                            Operator o = map.getMapField(x1, y1).getOperator() ;
+                            Asteroid a = map.getMapField(x2, y2).getAsteroid() ;
+                            Inventory inv = map.getMapField(x1, y1).getOperator().getInventory() ;
+                            o.HideResource(a, inv.getResource(0));
+
 
                             //System.out.println("settler and asteroid not in the same position");
 
