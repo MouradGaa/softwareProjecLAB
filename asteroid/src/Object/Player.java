@@ -1,12 +1,19 @@
 package Object;
 
 import GameMap.Game_Map;
+import GameState.PlayState;
 import GameState.StateManager;
 import GameState.content;
 import audio.Audio_player;
+import classes.Asteroid;
+import classes.Inventory;
+import classes.MaterialBase;
+import classes.Settler;
 
+import javax.management.InvalidAttributeValueException;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class Player extends Object{
 
@@ -24,16 +31,11 @@ public class Player extends Object{
 
     private long timer ; // game timer
 
-    private boolean has_key ;
-    private boolean has_axe ;
-
-    // books collected
-    private int num_books ;
-    private int total_num_books ;
+    private int lives = 0 ;
+    private Inventory inventory;
     // audio
     private Audio_player sfx ;
 
-    private StateManager sm ;
 
     //methods
 
@@ -52,11 +54,65 @@ public class Player extends Object{
        up_tile = content.player[3] ;
        anim.setImages(down_tile);
        anim.set_wait_time(7);
-       num_books = 0 ;
        sfx = new Audio_player() ;
    }
 
+    public int getLives() {
+        return lives;
+    }
 
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
+
+    public void Mine(ArrayList<asteroid> asteroids, Inventory inventory){
+    for(int i = 0; i< asteroids.size() ;i++)
+    {
+       asteroid a =asteroids.get(i) ;
+        if(this.collide_with(a))
+        {
+            if(a.getDepth()==0){
+            sfx.playMusic(content.key_sound,false);
+            inventory.setResources(a.getResource());}
+            else{
+                System.out.println("can't");
+            }
+        }
+    }
+
+}
+    public void Drill(ArrayList<asteroid> asteroids){
+        for(int i = 0; i< asteroids.size() ;i++)
+        {
+            asteroid a =asteroids.get(i) ;
+            if(this.collide_with(a))
+            {
+                sfx.playMusic(content.key_sound,false);
+                a.setDepth(a.getDepth()-1);
+            }
+        }
+    }
+
+    public void Hide(ArrayList<asteroid> asteroids){
+        for(int i = 0; i< asteroids.size() ;i++)
+        {
+            asteroid a =asteroids.get(i) ;
+            if(this.collide_with(a))
+            {
+                sfx.playMusic(content.key_sound,false);
+            }
+        }
+    }
+    public void build_Gate(ArrayList<asteroid> asteroids){
+        for(int i = 0; i< asteroids.size() ;i++)
+        {
+            asteroid a =asteroids.get(i) ;
+            if(this.collide_with(a))
+            {
+                sfx.playMusic(content.key_sound,false);
+            }
+        }
+    }
 
     // setter for animation
     private void set_animation(int act, BufferedImage[] images , int wait_t)
@@ -69,112 +125,7 @@ public class Player extends Object{
     //timer
     public long get_time() { return timer ;}
 
-    // player collected key or axe
-    public void player_has_key()
-    {
-        has_key = true ;
-    }
-    public void player_has_axe()
-    {
-        has_axe = true ;
-    }
-    public boolean key_is_collected() {return has_key ;}
-    public boolean axe_is_collected() {return has_axe ;}
 
-    //open door function
-    public void open_door()
-    {
-        if(has_key)
-        {
-            if(curr_anim==down && (map.getmap_index(curr_row+1,curr_col)==16 || map.getmap_index(curr_row+1,curr_col)==17))
-            {
-                if(map.getmap_index(curr_row+1,curr_col)==16)
-                {
-                    map.set_tile(curr_row+1,curr_col,30);
-                    map.set_tile(curr_row+2,curr_col,30);
-                    map.set_tile(curr_row+1,curr_col+1,30);
-                    map.set_tile(curr_row+2,curr_col+1,30);
-                }
-                if(map.getmap_index(curr_row+1,curr_col)==17)
-                {
-                    map.set_tile(curr_row+1,curr_col,30);
-                    map.set_tile(curr_row+2,curr_col,30);
-                    map.set_tile(curr_row+1,curr_col-1,30);
-                    map.set_tile(curr_row+2,curr_col-1,30);
-                }
-               sfx.playMusic(content.door_sound,false);
-            }
-            if(curr_anim==up && map.getmap_index(curr_row-1,curr_col)==18)
-            {
-                if(map.getmap_index(curr_row-1,curr_col)==18 && (map.getmap_index(curr_row-1,curr_col-1) != 18 ))
-                {
-                    map.set_tile(curr_row-1,curr_col,30);
-                    map.set_tile(curr_row-2,curr_col,30);
-                    map.set_tile(curr_row-1,curr_col+1,30);
-                    map.set_tile(curr_row-2,curr_col+1,30);
-                }
-                if(map.getmap_index(curr_row-1,curr_col)==18 && (map.getmap_index(curr_row-1,curr_col-1) == 18))
-                {
-                    map.set_tile(curr_row-1,curr_col,30);
-                    map.set_tile(curr_row-2,curr_col,30);
-                    map.set_tile(curr_row-1,curr_col-1,30);
-                    map.set_tile(curr_row-2,curr_col-1,30);
-                }
-                sfx.playMusic(content.door_sound,false);
-            }
-        }
-        if(has_axe)
-        {
-            if(curr_anim==down && (map.getmap_index(curr_row+1,curr_col)==19 || map.getmap_index(curr_row+1,curr_col)==20))
-            {
-                if(map.getmap_index(curr_row+1,curr_col)==19)
-                {
-                    map.set_tile(curr_row+1,curr_col,30);
-                    map.set_tile(curr_row+2,curr_col,30);
-                    map.set_tile(curr_row+1,curr_col+1,30);
-                    map.set_tile(curr_row+2,curr_col+1,30);
-                }
-                if(map.getmap_index(curr_row+1,curr_col)==20)
-                {
-                    map.set_tile(curr_row+1,curr_col,30);
-                    map.set_tile(curr_row+2,curr_col,30);
-                    map.set_tile(curr_row+1,curr_col-1,30);
-                    map.set_tile(curr_row+2,curr_col-1,30);
-                }
-                sfx.playMusic(content.door_sound,false);
-            }
-            if(curr_anim==up && (map.getmap_index(curr_row-1,curr_col)==21|| map.getmap_index(curr_row-1,curr_col)==22))
-            {
-                if(map.getmap_index(curr_row-1,curr_col)==21)
-                {
-                    map.set_tile(curr_row-1,curr_col,30);
-                    map.set_tile(curr_row-2,curr_col,30);
-                    map.set_tile(curr_row-1,curr_col+1,30);
-                    map.set_tile(curr_row-2,curr_col+1,30);
-                }
-                if(map.getmap_index(curr_row-1,curr_col)==22)
-                {
-                    map.set_tile(curr_row-1,curr_col,30);
-                    map.set_tile(curr_row-2,curr_col,30);
-                    map.set_tile(curr_row-1,curr_col-1,30);
-                    map.set_tile(curr_row-2,curr_col-1,30);
-                }
-                sfx.playMusic(content.door_sound,false);
-            }
-        }
-    }
-
-    //player collected a book
-    public void collected_book() {num_books ++ ;}
-    public int get_num_books() {return num_books ;}
-    public void set_total_num_books(int n)
-    {
-        total_num_books = n ;
-    }
-    public int get_total_num_books()
-    {
-        return total_num_books ;
-    }
 
     public void update()
     {

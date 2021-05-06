@@ -3,10 +3,12 @@ package GameState;
 import GameMap.Game_Map;
 import Main.gamePanel;
 import Object.Player ;
-import Object.book ;
+import Object.asteroid;
 import Object.item ;
 import UserInterface.UI;
 import audio.Audio_player;
+import classes.Carbon;
+import classes.Inventory;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -19,9 +21,9 @@ public class PlayState extends GameState{
     private Game_Map map ;
     //player
     private Player player ;
-    // books
-    private ArrayList<book> books ;
-    // items(axe,key)
+    // asteroids
+    private ArrayList<asteroid> asteroids;
+    private Inventory inventory = new Inventory();
     private ArrayList<item> items ;
     // user interface
     private UI ui ;
@@ -36,6 +38,7 @@ public class PlayState extends GameState{
         init();
     }
 
+
     @Override
     public void init()
     {
@@ -45,18 +48,17 @@ public class PlayState extends GameState{
         map.load_map("/zebi.txt");
         map.setPosition(0,0);
         map.set_smooth(0.1);
-        //books
-        books = new ArrayList<book>() ;
-        add_books();
+        //asteroids
+        asteroids = new ArrayList<asteroid>() ;
+        add_asteroids();
         // player
         player = new Player(map) ;
         player.set_position(2,3);
-        player.set_total_num_books(books.size());
         //items
         items = new ArrayList<item>() ;
         add_items();
         // user interface
-        ui = new UI(player,books) ;
+        ui = new UI(player, asteroids) ;
         //score
         score = new Score() ;
         load_score();
@@ -66,57 +68,60 @@ public class PlayState extends GameState{
     }
 
 
-    private void add_books()
+    private void add_asteroids()
     {
-        book b ;
+        asteroid g ;
 
-        b = new book(map) ;
-        b.set_position(4,7);
-        books.add(b) ;
+        g = new asteroid(map) ;
+        g.set_position(4,7);
+        g.setResource(new Carbon());
+        g.setDepth(5);
+        g.setPERIHELION(1);
+        asteroids.add(g) ;
 
-        b = new book(map) ;
-        b.set_position(2,16);
-        books.add(b) ;
+        g = new asteroid(map) ;
+        g.set_position(2,16);
+        asteroids.add(g) ;
 
-        b = new book(map) ;
-        b.set_position(5,30);
-        books.add(b) ;
+        g = new asteroid(map) ;
+        g.set_position(5,30);
+        asteroids.add(g) ;
 
-        b = new book(map) ;
-        b.set_position(8,22);
-        books.add(b) ;
+        g = new asteroid(map) ;
+        g.set_position(8,22);
+        asteroids.add(g) ;
 
-        b = new book(map) ;
-        b.set_position(12,7);
-        books.add(b) ;
+        g = new asteroid(map) ;
+        g.set_position(12,7);
+        asteroids.add(g) ;
 
-        b = new book(map) ;
-        b.set_position(13,38);
-        books.add(b) ;
+        g = new asteroid(map) ;
+        g.set_position(13,38);
+        asteroids.add(g) ;
 
-        b = new book(map) ;
-        b.set_position(18,31);
-        books.add(b) ;
+        g = new asteroid(map) ;
+        g.set_position(18,31);
+        asteroids.add(g) ;
 
-        b = new book(map) ;
-        b.set_position(22,29);
-        books.add(b) ;
+        g = new asteroid(map) ;
+        g.set_position(22,29);
+        asteroids.add(g) ;
 
-        b = new book(map) ;
-        b.set_position(30,7);
-        books.add(b) ;
+        g = new asteroid(map) ;
+        g.set_position(30,7);
+        asteroids.add(g) ;
 
-        b = new book(map) ;
-        b.set_position(38,1);
-        books.add(b) ;
+        g = new asteroid(map) ;
+        g.set_position(38,1);
+        asteroids.add(g) ;
 
-        b = new book(map) ;
-        b.set_position(34,21);
-        books.add(b) ;
+        g = new asteroid(map) ;
+        g.set_position(34,21);
+        asteroids.add(g) ;
 
-        b = new book(map) ;
-        b.set_position(37,36);
-        books.add(b) ;
+        g = new asteroid(map) ;
+        g.set_position(37,36);
+        asteroids.add(g) ;
 
     }
     private void add_items()
@@ -127,11 +132,8 @@ public class PlayState extends GameState{
         it.set_item_type(item.key);
         it.set_position(0,0);
         items.add(it) ;
-        //add axe
-        it = new item(map) ;
-        it.set_item_type(item.axe);
-        it.set_position(11,16);
-        items.add(it) ;
+
+
     }
     // save and load score in file
     public void save_score()
@@ -175,8 +177,8 @@ public class PlayState extends GameState{
         {
             t.render(g);
         }
-        // draw books
-        for (book b : books)
+        // draw asteroids
+        for (asteroid b : asteroids)
         {
             b.render(g);
         }
@@ -190,49 +192,33 @@ public class PlayState extends GameState{
     @Override
     public void update()
     {
-
-        if(player.get_num_books()== player.get_total_num_books()  )
+        for(int i= 0 ; i<asteroids.size(); i++)
         {
-            score.add_score(ui.get_time());
-            if(score.get_scores().size()>5)
-            {
-                score.get_scores().remove(0) ;
-            }
-            save_score();
-            init();
-            MenuState.sfx1.stopMusic();
-            MenuState.sfx1.playMusic(content.bgMenu_sound,true);
-            sm.setCurrentState(StateManager.GameOverState);
-        }
+            asteroid a = asteroids.get(i) ;
+            if (a.getDepth() == 0 && a.getPERIHELION() == 1)
+            { asteroids.remove(i);
+                if(player.collide_with(a))
+                {
+                    sfx.playMusic(content.key_sound,false);
+                    if ( player.getLives() != 0){
+                    player.set_position(2,3);
+                    player.setLives(player.getLives()-1);}
+                    else {
+                        init();
+                        MenuState.sfx1.stopMusic();
+                        MenuState.sfx1.playMusic(content.bgMenu_sound,true);
+                        sm.setCurrentState(StateManager.GameOverState);
+                }
+                }}
 
+        }
         //update player
         player.update() ;
         //update map
         map.setPosition(gamePanel.width/2- player.getX(), gamePanel.height/2- player.getY());
-        //update books and player collect
-        for(int i= 0 ; i<books.size(); i++)
-        {
-            book b = books.get(i) ;
-            if(player.collide_with(b))
-            {
-                sfx.playMusic(content.book_sound,false);
-                books.remove(i) ;
-                player.collected_book();
-            }
 
-        }
-        // update items and player collect
-        for(int i=0 ; i<items.size();i++)
-        {
-            item it = items.get(i) ;
-            if(player.collide_with(it))
-            {
-                sfx.playMusic(content.key_sound,false);
-                items.remove(i) ;
-                it.collected_by_player(player);
 
-            }
-        }
+
 
     }
 
@@ -242,8 +228,9 @@ public class PlayState extends GameState{
         if(e== KeyEvent.VK_LEFT) player.set_left(true);
         if(e== KeyEvent.VK_RIGHT) player.set_right(true);
         if(e== KeyEvent.VK_DOWN) player.set_down(true);
+        if(e== KeyEvent.VK_M) player.Mine(asteroids,inventory);
+        if(e== KeyEvent.VK_L) player.Drill(asteroids);
         if(e== KeyEvent.VK_UP) player.set_up(true);
-        if(e== KeyEvent.VK_A) player.open_door();
         if(e== KeyEvent.VK_ESCAPE) sm.setCurrentState(StateManager.MenuState);
 
     }
