@@ -22,7 +22,20 @@ public class Inventory {
 	{
 		return Resources.get(index) ;
 		}
-		// check if the player has the needed resource to win the game
+	public String getResourceName(int index)
+	{	Uranium n= new Uranium();
+		Carbon c = new Carbon();
+		Iron i =new Iron();
+		WaterIce w =new WaterIce();
+		if(Resources.get(index).equals(c) )return "Carbon";
+		if(Resources.get(index).equals(i) )return "Iron";
+		if(Resources.get(index).equals(w) )return "WaterIce";
+		if(Resources.get(index).equals(n) )return "Uranium";
+		return " no resources";
+	}
+
+	// check if the player has the needed resource to win the game
+
 public boolean check_win(){
 	Uranium n= new Uranium();
 	Carbon c = new Carbon();

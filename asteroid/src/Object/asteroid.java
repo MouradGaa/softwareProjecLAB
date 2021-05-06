@@ -2,9 +2,7 @@ package Object;
 
 import GameMap.Game_Map;
 import GameState.content;
-import classes.MaterialBase;
-import classes.Settler;
-import classes.TeleportationGate;
+import classes.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -18,7 +16,17 @@ private int depth;
     private   int APHELION ;
     private boolean isRadioactive ;
     private boolean isHollow;
-
+    public String getResourceNames()
+    {	Uranium n= new Uranium();
+        Carbon c = new Carbon();
+        Iron i =new Iron();
+        WaterIce w =new WaterIce();
+        if(resource.getClass().equals(c.getClass()) )return "Carbon";
+        if(resource.getClass().equals(i.getClass()) )return "Iron";
+        if(resource.getClass().equals(w.getClass()) )return "WaterIce";
+        if(resource.getClass().equals(n.getClass()) )return "Uranium";
+        return " no resources";
+    }
     private BufferedImage image ;
     public asteroid(Game_Map map) {
         super(map);
