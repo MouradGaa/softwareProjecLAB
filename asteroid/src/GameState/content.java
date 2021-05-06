@@ -11,7 +11,7 @@ public class content{
     public static BufferedImage[][] player = load("/SettlerSprite.gif", 48, 48); // player tileset
     public static BufferedImage[][] asteroid = load("/asteroid.gif",96,96); //
     public static BufferedImage[][] key = load("/base.gif",240,240) ;
-    public static BufferedImage[][] ui = load("/ui.gif",214,32) ;
+    public static BufferedImage[][] ui = load("/hud .png",200,138) ;
     public static BufferedImage[][] bme_logo = load("/credit.gif",214,116) ;
     public static BufferedImage[][] mapImg = load("/bgg.gif",1500,1500) ;
     public static Image bg = new ImageIcon(content.class.getResource("/bgg.gif")).getImage();

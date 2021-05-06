@@ -7,13 +7,13 @@ import Object.asteroid;
 import Object.item ;
 import UserInterface.UI;
 import audio.Audio_player;
-import classes.Carbon;
-import classes.Inventory;
+import classes.*;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class PlayState extends GameState{
@@ -71,56 +71,82 @@ public class PlayState extends GameState{
     private void add_asteroids()
     {
         asteroid g ;
-
         g = new asteroid(map) ;
-        g.set_position(4,7);
+        g.set_position(5,9);
         g.setResource(new Carbon());
-        g.setDepth(5);
+        g.setDepth(7);
+        g.setRadioactive(true);
         g.setPERIHELION(1);
         asteroids.add(g) ;
 
         g = new asteroid(map) ;
         g.set_position(2,16);
+        g.setDepth(5);
+        g.setResource(new Uranium());
         asteroids.add(g) ;
 
         g = new asteroid(map) ;
         g.set_position(5,30);
+        g.setDepth(6);
+        g.setResource(new WaterIce());
+
         asteroids.add(g) ;
 
         g = new asteroid(map) ;
         g.set_position(8,22);
+        g.setDepth(7);
+        g.setResource(new Iron());
         asteroids.add(g) ;
 
         g = new asteroid(map) ;
         g.set_position(12,7);
+        g.setDepth(8);
+        g.setResource(new Carbon());
         asteroids.add(g) ;
 
         g = new asteroid(map) ;
         g.set_position(13,38);
+        g.setDepth(10);
+        g.setResource(new Uranium());
+        g.setPERIHELION(1);
         asteroids.add(g) ;
 
         g = new asteroid(map) ;
         g.set_position(18,31);
+        g.setDepth(3);
+        g.setResource(new WaterIce());
         asteroids.add(g) ;
 
         g = new asteroid(map) ;
         g.set_position(22,29);
+        g.setDepth(5);
+        g.setResource(new Iron());
         asteroids.add(g) ;
 
         g = new asteroid(map) ;
         g.set_position(30,7);
+        g.setDepth(11);
+        g.setResource(new Carbon());
+        g.setRadioactive(true);
+        g.setPERIHELION(1);
         asteroids.add(g) ;
 
         g = new asteroid(map) ;
         g.set_position(38,1);
+        g.setDepth(9);
+        g.setResource(new Uranium());
         asteroids.add(g) ;
 
         g = new asteroid(map) ;
         g.set_position(34,21);
+        g.setDepth(7);
+        g.setResource(new WaterIce());
         asteroids.add(g) ;
 
         g = new asteroid(map) ;
         g.set_position(37,36);
+        g.setDepth(6);
+        g.setResource(new Iron());
         asteroids.add(g) ;
 
     }
@@ -195,22 +221,27 @@ public class PlayState extends GameState{
         for(int i= 0 ; i<asteroids.size(); i++)
         {
             asteroid a = asteroids.get(i) ;
-            if (a.getDepth() == 0 && a.getPERIHELION() == 1)
+            if (a.getDepth() == 0 && a.getPERIHELION() == 1 && a.isRadioactive())
             { asteroids.remove(i);
                 if(player.collide_with(a))
                 {
                     sfx.playMusic(content.key_sound,false);
-                    if ( player.getLives() != 0){
-                    player.set_position(2,3);
-                    player.setLives(player.getLives()-1);}
+                    if ( player.getLives() != 0){ // check if settler run out of lives
+                    player.set_position(2,3); // reposition the settler in the base
+                    player.setLives(player.getLives()-1);} // decrease its lives
                     else {
                         init();
                         MenuState.sfx1.stopMusic();
                         MenuState.sfx1.playMusic(content.bgMenu_sound,true);
-                        sm.setCurrentState(StateManager.GameOverState);
+                        sm.setCurrentState(StateManager.GameOverLosingState);
                 }
                 }}
 
+        }
+        if ( inventory.check_win()){
+            MenuState.sfx1.stopMusic();
+        MenuState.sfx1.playMusic(content.bgMenu_sound,true);
+        sm.setCurrentState(StateManager.GameOverWinningState);
         }
         //update player
         player.update() ;
@@ -230,6 +261,8 @@ public class PlayState extends GameState{
         if(e== KeyEvent.VK_DOWN) player.set_down(true);
         if(e== KeyEvent.VK_M) player.Mine(asteroids,inventory);
         if(e== KeyEvent.VK_L) player.Drill(asteroids);
+        if(e== KeyEvent.VK_H) player.Hide(asteroids);
+        if(e== KeyEvent.VK_I) player.check(asteroids);
         if(e== KeyEvent.VK_UP) player.set_up(true);
         if(e== KeyEvent.VK_ESCAPE) sm.setCurrentState(StateManager.MenuState);
 
