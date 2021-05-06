@@ -5,10 +5,7 @@ import GameState.PlayState;
 import GameState.StateManager;
 import GameState.content;
 import audio.Audio_player;
-import classes.Asteroid;
-import classes.Inventory;
-import classes.MaterialBase;
-import classes.Settler;
+import classes.*;
 
 import javax.management.InvalidAttributeValueException;
 import java.awt.*;
@@ -30,18 +27,21 @@ public class Player extends Object{
     private final int up = 3 ;
 
     private long timer ; // game timer
-
-    private int lives = 0 ;
+    private boolean hidden ;
+    private int lives = 3 ;
     private Inventory inventory;
     // audio
     private Audio_player sfx ;
 
+    private boolean collided =false;
+    private asteroid asteroid;
 
     //methods
 
     //constructor
     public Player(Game_Map map)
    {
+
        super(map) ;
        width = 32 ;
        height = 32 ;
@@ -55,6 +55,7 @@ public class Player extends Object{
        anim.setImages(down_tile);
        anim.set_wait_time(7);
        sfx = new Audio_player() ;
+       asteroid = new asteroid(map);
    }
 
     public int getLives() {
@@ -73,7 +74,13 @@ public class Player extends Object{
         {
             if(a.getDepth()==0){
             sfx.playMusic(content.key_sound,false);
-            inventory.setResources(a.getResource());}
+            if ( a.getResource()== null)
+                System.out.println("can't");
+            else{
+            inventory.setResources(a.getResource());
+            }
+            }
+
             else{
                 System.out.println("can't");
             }
@@ -81,14 +88,37 @@ public class Player extends Object{
     }
 
 }
-    public void Drill(ArrayList<asteroid> asteroids){
+
+    public asteroid getAsteroid() {
+        return asteroid;
+    }
+
+    public boolean isCollided() {
+        return collided;
+    }
+    public void check(ArrayList<asteroid> asteroids){
         for(int i = 0; i< asteroids.size() ;i++)
         {
             asteroid a =asteroids.get(i) ;
             if(this.collide_with(a))
             {
+                asteroid = a;
+                collided = true;
+
+            }
+        }
+    }
+    public void Drill(ArrayList<asteroid> asteroids){
+        for(int i = 0; i< asteroids.size() ;i++)
+        {
+            asteroid a =asteroids.get(i) ;
+            if(this.collide_with(a)&& a.getDepth()>0)
+            {
                 sfx.playMusic(content.key_sound,false);
                 a.setDepth(a.getDepth()-1);
+                asteroid = a;
+                collided = true;
+
             }
         }
     }
@@ -98,12 +128,26 @@ public class Player extends Object{
         {
             asteroid a =asteroids.get(i) ;
             if(this.collide_with(a))
+            {if (a.getDepth() == 0){
+                hidden = true;
+                sfx.playMusic(content.key_sound,false);}
+                else{
+                System.out.println("can't ");
+            }
+            }
+        }
+    }
+    public void build_Gate(ArrayList<asteroid> asteroids,Inventory inventory){
+        for(int i = 0; i< asteroids.size() ;i++)
+        {
+            asteroid a =asteroids.get(i) ;
+            if(this.collide_with(a))
             {
                 sfx.playMusic(content.key_sound,false);
             }
         }
     }
-    public void build_Gate(ArrayList<asteroid> asteroids){
+    public void teleport(ArrayList<asteroid> asteroids, TeleportationGate g){
         for(int i = 0; i< asteroids.size() ;i++)
         {
             asteroid a =asteroids.get(i) ;

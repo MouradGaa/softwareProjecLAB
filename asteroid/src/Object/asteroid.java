@@ -16,7 +16,7 @@ private MaterialBase resource;
 private int depth;
     private   int PERIHELION  ;
     private   int APHELION ;
-    private boolean isRadioactive = true;
+    private boolean isRadioactive ;
     private boolean isHollow;
 
     private BufferedImage image ;
@@ -29,6 +29,14 @@ private int depth;
         image = content.asteroid[0][0] ;
     }
 
+    public void setRadioactive(boolean radioactive) {
+        isRadioactive = radioactive;
+    }
+
+    public boolean isRadioactive() {
+        return isRadioactive;
+    }
+//getters and setters
     public void setAPHELION(int APHELION) {
         this.APHELION = APHELION;
     }
@@ -60,6 +68,7 @@ private int depth;
     public void setResource(MaterialBase resource){
         this.resource = resource;
     }
+    public void removeResource(){this.resource = null;}
     public void render(Graphics2D g)
     {
         set_map_position();

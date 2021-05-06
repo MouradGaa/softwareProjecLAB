@@ -11,7 +11,9 @@ public class StateManager {
     private int currentState ;
     public static final int MenuState = 0 ;
     public static final int PlayState = 1 ;    // game states
-    public static final int GameOverState = 2 ;
+    public static final int GameOverLosingState = 2 ;
+    public static final int GameOverWinningState = 2 ;
+
 
 
 
@@ -22,7 +24,9 @@ public class StateManager {
 
         gameStates.add(new MenuState(this)) ; //add menu state
         gameStates.add(new PlayState(this)) ; // add play state
-        gameStates.add(new GameOverState(this)) ; // add gameover state
+        gameStates.add(new GameOverLosingState(this)) ; // add gameover  in case of losing
+        gameStates.add(new GameOverWinningState(this)) ; // add gameover state in case of winnig
+
 
     }
 
