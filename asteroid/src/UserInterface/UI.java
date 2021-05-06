@@ -9,16 +9,13 @@ import GameState.StateManager;
 import GameState.content;
 import Main.gamePanel;
 import Object.Player ;
-import Object.book ;
+import Object.asteroid;
 
 public class UI {
 
-    private BufferedImage book ;
-    private BufferedImage key ;
-    private BufferedImage axe ;
+    private BufferedImage asteroid;
     private BufferedImage ui ;
     private Player player ;
-    private int num_books ;
     private String time ;
 
     private StateManager sm ;
@@ -26,13 +23,10 @@ public class UI {
     private Font font ;
     private Color color ;
 
-    public UI(Player p, ArrayList<book> b)
+    public UI(Player p, ArrayList<asteroid> b)
     {
         player = p ;
-        num_books = b.size() ;
-        book = content.book[0][0] ;
-        key = content.key[0][0] ;
-        axe = content.axe[0][0] ;
+        asteroid = content.asteroid[0][0] ;
         ui =content.ui[0][0] ;
         font = new Font("Century Gothic",Font.BOLD,20) ;
         color = new Color(0xFC420005, true) ;
@@ -42,15 +36,9 @@ public class UI {
     {
         // draw ui box
         g.drawImage(ui,0,gamePanel.height-14,null);
-        //draw book image and books counter
         g.setColor(color);
         g.setFont(font);
-        String s = player.get_num_books() + "/" + num_books ;
-        g.drawString(s,30, gamePanel.height+8);
-        g.drawImage(book,0,gamePanel.height-8,null);
-        //draw axe and key
-        if(player.key_is_collected()) g.drawImage(key,173,gamePanel.height-7,null);
-        if(player.axe_is_collected()) g.drawImage(axe,145,gamePanel.height-9,null);
+        g.drawImage(asteroid,0,gamePanel.height-8,null);
         // draw timer
         int min = (int) (player.get_time()/1800) ; // 30 frames per second so in 1 min the timer increments 1800 times
         int sec = (int) ((player.get_time()/30)%60) ;

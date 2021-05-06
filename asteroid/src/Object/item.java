@@ -31,22 +31,9 @@ public class item extends Object{
         {
             image = content.key[0][0] ;
         }
-        if (type==axe)
-        {
-            image = content.axe[0][0] ;
-        }
+
     }
-    public void collected_by_player(Player p)
-    {
-        if(type==key)
-        {
-            p.player_has_key();
-        }
-        if (type==axe)
-        {
-            p.player_has_axe();
-        }
-    }
+
 
     public void render(Graphics2D g)
     {

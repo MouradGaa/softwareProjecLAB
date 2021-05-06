@@ -31,7 +31,7 @@ public abstract class Object {
     protected int width ;
     protected int height ;
     protected int col_width ; // width and
-    protected int col_height ;//height for detecting collision when collecting item or book
+    protected int col_height ;//height for detecting collision when collecting item or asteroid
     //aniamtion
     protected animation anim ;
     protected int curr_anim ;

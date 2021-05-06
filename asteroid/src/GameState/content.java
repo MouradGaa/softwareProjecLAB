@@ -9,9 +9,8 @@ import java.awt.image.BufferedImage;
 public class content{
 
     public static BufferedImage[][] player = load("/SettlerSprite.gif", 48, 48); // player tileset
-    public static BufferedImage[][] book = load("/asteroid.gif",96,96); //
+    public static BufferedImage[][] asteroid = load("/asteroid.gif",96,96); //
     public static BufferedImage[][] key = load("/base.gif",240,240) ;
-    public static BufferedImage[][] axe = load("/axe.png",32,32) ;
     public static BufferedImage[][] ui = load("/ui.gif",214,32) ;
     public static BufferedImage[][] bme_logo = load("/credit.gif",214,116) ;
     public static BufferedImage[][] mapImg = load("/bgg.gif",1500,1500) ;
@@ -22,8 +21,6 @@ public class content{
     public static String select_sound = "audio/select.wav" ;
     public static String play_sound = "audio/play_music.wav" ;
     public static String key_sound = "audio/key_pickup.wav" ;
-    public static String door_sound = "audio/open_door.wav" ;
-    public static String book_sound = "audio/book.wav" ;
     // loads and image and store into matrix of images(useful for loading the player tileset mainly)
     public static BufferedImage[][] load(String s, int w, int h)
     {
