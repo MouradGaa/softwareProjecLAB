@@ -5,11 +5,13 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 
+import GameState.PlayState;
 import GameState.StateManager;
 import GameState.content;
 import Main.gamePanel;
 import Object.Player ;
 import Object.asteroid;
+import classes.Inventory;
 
 public class UI {
 
@@ -17,6 +19,7 @@ public class UI {
     private BufferedImage ui ;
     private BufferedImage ui2 ;
     private Player player ;
+    private Inventory inventory ;
     private String time ;
     private String depth   ;
     private String state1;
@@ -24,15 +27,18 @@ public class UI {
     private String radioactive;
     private String resource;
     private String lives;
+    private String sinventory;
 
-
+    private String[] terma = {"Carbon:","Iron:", "WaterIce:","Uranium:"};
     private StateManager sm ;
 
     private Font font ;
     private Color color ;
 
     public UI(Player p, ArrayList<asteroid> b)
-    {
+    {  inventory = PlayState.inventory;
+
+
         player = p ;
         asteroid = content.asteroid[0][0] ;
         ui =content.ui[0][0] ;
@@ -44,6 +50,8 @@ public class UI {
 
     public void render(Graphics2D g)
     {
+
+
         // draw ui box
         g.drawImage(ui, gamePanel.width-200,gamePanel.height-50,null);
         g.drawImage(ui2, gamePanel.width-80,gamePanel.height-300,null);
@@ -51,8 +59,19 @@ public class UI {
         g.setFont(font);
         lives = String.valueOf(player.getLives());
         g.drawString("Lives : " + lives,gamePanel.width-65,gamePanel.height-280);
-        // g.drawString("depth : " + depth);
-       // g.drawImage(asteroid,0,gamePanel.height-8,null);
+        g.drawString("resources : " ,gamePanel.width-65,gamePanel.height-260);
+
+        for ( int i=0 ; i< 4 ; i++){
+            g.drawString( terma[i],gamePanel.width-65,gamePanel.height-240+10*i);
+        }
+        try {
+            for ( int i=0 ; i< 4 ; i++){
+               sinventory = String.valueOf(inventory.getResourceNumber(i));
+                g.drawString(sinventory ,gamePanel.width-15,gamePanel.height-240+10*i);
+
+            }} catch (Exception e) {
+        }
+
         if(player.isCollided()) {
             asteroid a = player.getAsteroid();
             depth = String.valueOf(a.getDepth());

@@ -23,7 +23,7 @@ public class PlayState extends GameState{
     private Player player ;
     // asteroids
     private ArrayList<asteroid> asteroids;
-    private Inventory inventory = new Inventory();
+    public static Inventory inventory = new Inventory();
     private ArrayList<item> items ;
     // user interface
     private UI ui ;
@@ -222,7 +222,7 @@ public class PlayState extends GameState{
         {
             asteroid a = asteroids.get(i) ;
             if (a.getDepth() == 0 && a.getPERIHELION() == 1 && a.isRadioactive())
-            { asteroids.remove(i);
+            { asteroids.remove(i); // asteroid exploded and removed from map
                 if(player.collide_with(a))
                 {
                     sfx.playMusic(content.key_sound,false);
@@ -238,9 +238,8 @@ public class PlayState extends GameState{
                 }}
 
         }
-        if ( inventory.check_win()){
-            MenuState.sfx1.stopMusic();
-        MenuState.sfx1.playMusic(content.bgMenu_sound,true);
+        if ( check_win()){
+            //MenuState.sfx1.stopMusic();
         sm.setCurrentState(StateManager.GameOverWinningState);
         }
         //update player
@@ -252,7 +251,13 @@ public class PlayState extends GameState{
 
 
     }
+public boolean check_win(){
+        for (int i=0 ; i<4;i++){
+            if( inventory.getResourceNumber(i)!=3) return false;
 
+        }
+    return true;
+}
     @Override
     public void keyPressed(int e)
     {

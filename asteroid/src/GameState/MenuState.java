@@ -22,6 +22,9 @@ public class MenuState extends GameState {
 
     private Font font ;
     private Color menu_color ;
+    private Color choose_color ;
+
+
 
     // audio
     private Audio_player sfx ;
@@ -38,7 +41,8 @@ public class MenuState extends GameState {
         titleColor = new Color(149, 98, 0) ; // set color
         titleFont = new Font("Century Gothic",Font.BOLD,32) ; // set font
         font = new Font("Century Gothic", Font.BOLD,26) ;
-        menu_color = new Color(0xFF042055, true) ;
+        menu_color = new Color(0xFF1C4792, true) ;
+        choose_color = new Color(0xFFACC5F3, true) ;
 
         sfx = new Audio_player() ;
         sfx1 = new Audio_player() ;
@@ -53,16 +57,17 @@ public class MenuState extends GameState {
         //draw title
         g.setColor(titleColor);
         g.setFont(titleFont);
-        g.drawString("ASTEROID MINING",120,80);
+        g.drawString("ASTEROID MINING",120,60);
         //draw options
         g.setFont(font);
         if(help)
         {
-            g.setColor(menu_color);
-            g.drawString("-Use Arrow keys",28,190);
-            g.drawString("to move.",28,210);
-            g.drawString("-Use 'A' to make",28,240);
-            g.drawString("an action",28,260) ;
+            g.setColor(choose_color);
+            g.drawString("-Use Arrow keys to move",20,100);
+            g.drawString("-Use 'I' to check asteroid state",20,150);
+            g.drawString("-Use 'H' to Hide",20,200);
+            g.drawString("-Use 'L' to Drill",20,250) ;
+            g.drawString("-Use 'M' to Mine",20,300);
         }
         else if (score)
         {

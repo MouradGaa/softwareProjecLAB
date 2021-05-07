@@ -5,14 +5,25 @@ import java.util.ArrayList;
 public class Inventory {
 	ArrayList<MaterialBase> Resources;
 	ArrayList<TeleportationGate> Gates;
+	int[] resourceNumber = {0,0,0,0};
 
 
 	//mourad
 	public Inventory()
 	{
-		Resources = new ArrayList<>() ;
+		Resources = new ArrayList<>();
+		Resources.add(new empty());
 		Gates = new ArrayList<>();
 	}
+
+	public int getResourceNumber(int i) {
+		return resourceNumber[i];
+	}
+
+	public void setResourceNumber(int i) {
+		this.resourceNumber[i] ++ ;
+	}
+
 	public void setResources(MaterialBase mb)
 	{
 		Resources.add(mb) ;
@@ -22,47 +33,11 @@ public class Inventory {
 	{
 		return Resources.get(index) ;
 		}
-	public String getResourceName(int index)
-	{	Uranium n= new Uranium();
-		Carbon c = new Carbon();
-		Iron i =new Iron();
-		WaterIce w =new WaterIce();
-		if(Resources.get(index).equals(c) )return "Carbon";
-		if(Resources.get(index).equals(i) )return "Iron";
-		if(Resources.get(index).equals(w) )return "WaterIce";
-		if(Resources.get(index).equals(n) )return "Uranium";
-		return " no resources";
-	}
+
 
 	// check if the player has the needed resource to win the game
 
-public boolean check_win(){
-	Uranium n= new Uranium();
-	Carbon c = new Carbon();
-	Iron i =new Iron();
-	WaterIce w =new WaterIce();
-	int nbr_c  = 0;
-	int nbr_n = 0;
-	int nbr_i  = 0;
-	int nbr_w  = 0;
 
-	for( MaterialBase resources : Resources){
-
-		if (resources.equals(c))
-			nbr_c++;
-		if (resources.equals(n))
-			nbr_n++;
-		if (resources.equals(i))
-			nbr_i++;
-		if (resources.equals(w))
-			nbr_w++;
-
-	}
-	if ( nbr_c ==3 && nbr_n ==3 && nbr_i ==3&& nbr_w ==3)
-		return true;
-	else
-		return false;
-}
 		public void setGates(TeleportationGate g)
 		{
 			Gates.add(g) ;
