@@ -21,7 +21,7 @@ public class GameOverLosingState extends GameState {
 
     @Override
     public void init() {
-        image = new ImageIcon(getClass().getResource("/gameOver.gif")).getImage(); // load background gif
+        image = new ImageIcon(getClass().getResource("/gameover.gif")).getImage(); // load background gif
         color = new Color(130, 0, 0, 255) ;
         color2 = new Color(255, 255, 255, 255) ;
         font = new Font("Century Gothic",Font.BOLD,18) ;
@@ -31,7 +31,7 @@ public class GameOverLosingState extends GameState {
     @Override
     public void render(Graphics2D g) {
         //draw
-        g.drawImage(image,0,0, 215, 350,null); // draw background
+        g.drawImage(image,0,0, 500, 340,null); // draw background
         //draw ending text
         g.setColor(color);
         g.setFont(font);

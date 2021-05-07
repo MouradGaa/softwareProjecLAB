@@ -12,7 +12,9 @@ public class StateManager {
     public static final int MenuState = 0 ;
     public static final int PlayState = 1 ;    // game states
     public static final int GameOverLosingState = 2 ;
-    public static final int GameOverWinningState = 2 ;
+    public static final int GameOverWinningState = 3 ;
+
+
 
 
 

@@ -20,12 +20,13 @@ private int depth;
     {	Uranium n= new Uranium();
         Carbon c = new Carbon();
         Iron i =new Iron();
+        empty e =new empty();
         WaterIce w =new WaterIce();
         if(resource.getClass().equals(c.getClass()) )return "Carbon";
         if(resource.getClass().equals(i.getClass()) )return "Iron";
         if(resource.getClass().equals(w.getClass()) )return "WaterIce";
         if(resource.getClass().equals(n.getClass()) )return "Uranium";
-        return " no resources";
+        return "";
     }
     private BufferedImage image ;
     public asteroid(Game_Map map) {
@@ -76,7 +77,7 @@ private int depth;
     public void setResource(MaterialBase resource){
         this.resource = resource;
     }
-    public void removeResource(){this.resource = null;}
+    public void removeResource(){this.resource = new empty();}
     public void render(Graphics2D g)
     {
         set_map_position();

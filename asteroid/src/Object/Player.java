@@ -12,6 +12,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import static GameState.PlayState.inventory;
+
 public class Player extends Object{
 
     //tile frames
@@ -29,7 +31,6 @@ public class Player extends Object{
     private long timer ; // game timer
     private boolean hidden ;
     private int lives = 3 ;
-    private Inventory inventory;
     // audio
     private Audio_player sfx ;
 
@@ -78,7 +79,10 @@ public class Player extends Object{
                 System.out.println("can't");
             else{
             inventory.setResources(a.getResource());
+            increment_resource_num(a);
+            a.removeResource();
             }
+
             }
 
             else{
@@ -191,6 +195,21 @@ public class Player extends Object{
             if(curr_anim != down) set_animation(down,down_tile,7);
         }
         super.update();
+    }
+    public void increment_resource_num(asteroid asteroid){
+        Uranium n= new Uranium();
+        Carbon c = new Carbon();
+        Iron i =new Iron();
+        WaterIce w =new WaterIce();
+try {
+    if (asteroid.getResource().getClass().equals(c.getClass())) inventory.setResourceNumber(0);
+    if (asteroid.getResource().getClass().equals(i.getClass())) inventory.setResourceNumber(1);
+    if (asteroid.getResource().getClass().equals(w.getClass())) inventory.setResourceNumber(2);
+    if (asteroid.getResource().getClass().equals(n.getClass())) inventory.setResourceNumber(3);
+}
+catch (Exception e){
+    e.printStackTrace();
+}
     }
 
     public void render(Graphics2D g)
