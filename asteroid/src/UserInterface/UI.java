@@ -20,8 +20,9 @@ public class UI {
     private BufferedImage ui2 ;
     private Player player ;
     private Inventory inventory ;
+    private BufferedImage gateImg;
     private String time ;
-    private String depth   ;
+    private String depth  ;
     private String state1;
     private String state2;
     private String radioactive;
@@ -29,7 +30,7 @@ public class UI {
     private String lives;
     private String sinventory;
 
-    private String[] terma = {"Carbon:","Iron:", "WaterIce:","Uranium:"};
+    private String[] terma = {"Carbon:","Iron:", "WaterIce:","Uranium:","Gates: "};
     private StateManager sm ;
 
     private Font font ;
@@ -61,11 +62,11 @@ public class UI {
         g.drawString("Lives : " + lives,gamePanel.width-65,gamePanel.height-280);
         g.drawString("resources : " ,gamePanel.width-65,gamePanel.height-260);
 
-        for ( int i=0 ; i< 4 ; i++){
+        for ( int i=0 ; i< 5; i++){
             g.drawString( terma[i],gamePanel.width-65,gamePanel.height-240+10*i);
         }
         try {
-            for ( int i=0 ; i< 4 ; i++){
+            for ( int i=0 ; i< 5 ; i++){
                sinventory = String.valueOf(inventory.getResourceNumber(i));
                 g.drawString(sinventory ,gamePanel.width-15,gamePanel.height-240+10*i);
 

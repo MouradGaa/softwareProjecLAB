@@ -148,8 +148,26 @@ public class Player extends Object{
             if(this.collide_with(a))
             {
                 sfx.playMusic(content.key_sound,false);
+
+                if ((inventory.getResourceNumber(1)>=2)&&inventory.getResourceNumber(3)>=1&&inventory.getResourceNumber(2)>=1)
+                {
+
+                    inventory.setResourceUnitsByIndex(1,-2);
+                    inventory.setResourceUnitsByIndex(3,-1);
+                    inventory.setResourceUnitsByIndex(2,-1);
+                    inventory.setResourceNumber(4);
+                    inventory.setNum_gates();
+                    //return  true;
+                }
+                else
+                {
+                    System.out.println("You do not have enough resources to build the gates");
+                    //return false;
+                }
             }
+
         }
+        //return false;
     }
     public void teleport(ArrayList<asteroid> asteroids, TeleportationGate g){
         for(int i = 0; i< asteroids.size() ;i++)

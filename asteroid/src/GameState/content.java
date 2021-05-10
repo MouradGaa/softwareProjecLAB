@@ -15,6 +15,7 @@ public class content{
     public static BufferedImage[][] ui2 = load("/playerHUD.png",96,119) ;
     public static BufferedImage[][] bme_logo = load("/credit.gif",214,116) ;
     public static BufferedImage[][] mapImg = load("/bgg.gif",1500,1500) ;
+    public static BufferedImage[][] gateImg =load("/gate.jpg",500,500);
     public static Image bg = new ImageIcon(content.class.getResource("/bgg.gif")).getImage();
     // audio
     public static String menu_sound = "audio/switch.wav";

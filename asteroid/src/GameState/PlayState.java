@@ -268,6 +268,7 @@ public boolean check_win(){
         if(e== KeyEvent.VK_L) player.Drill(asteroids);
         if(e== KeyEvent.VK_H) player.Hide(asteroids);
         if(e== KeyEvent.VK_I) player.check(asteroids);
+        if (e== KeyEvent.VK_B) player.build_Gate(asteroids,inventory);
         if(e== KeyEvent.VK_UP) player.set_up(true);
         if(e== KeyEvent.VK_ESCAPE) sm.setCurrentState(StateManager.MenuState);
 
